@@ -6,31 +6,39 @@ import Purchases from './pages/Purchases'
 import Login from './pages/Login'
 import ProductDetail from './pages/ProductDetail'
 import Loader from './components/Loader'
+import { useSelector } from 'react-redux'
+import Container from 'react-bootstrap/Container';
 
 function App() {
+
+  const isLoading = useSelector(state => state.isLoading)
 
   return (
     <>
       <HashRouter>
-        <Loader/>
+        {
+          isLoading && <Loader />
+        }
         <AppNavBar />
-        <Routes>
-          <Route
-            element={<Home />}
-            path='/'
-          />
-          <Route
-            element={<Login />}
-            path='/login' />
-          <Route
-            element={<ProductDetail />}
-            path='/productdetail/:id'
-          />
-          <Route
-            element={<Purchases />}
-            path='/purchases'
-          />
-        </Routes>
+        <Container fluid>
+          <Routes>
+            <Route
+              element={<Home />}
+              path='/'
+            />
+            <Route
+              element={<Login />}
+              path='/login' />
+            <Route
+              element={<ProductDetail />}
+              path='/productdetail/:id'
+            />
+            <Route
+              element={<Purchases />}
+              path='/purchases'
+            />
+          </Routes>
+        </Container>
       </HashRouter>
     </>
   )

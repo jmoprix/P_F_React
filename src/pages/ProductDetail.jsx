@@ -1,7 +1,7 @@
 const ProductDetail = ()=>{
     return (
        <div>
-        <h1>ProducDetail</h1>
+        <h1>ProductDetail</h1>
        </div>
   )
 }
