@@ -42,7 +42,7 @@ const Home = () => {
               categories.map(category => (
                 <ListGroup.Item
                   key={category.id}
-                  onClick={() => dispatch(filterCategoryTunk())}
+                  onClick={() => dispatch(filterCategoryTunk(category.id))}
                 >
                   {category.name}
                 </ListGroup.Item>

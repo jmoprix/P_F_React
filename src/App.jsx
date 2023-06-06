@@ -7,7 +7,8 @@ import Login from './pages/Login'
 import ProductDetail from './pages/ProductDetail'
 import Loader from './components/Loader'
 import { useSelector } from 'react-redux'
-import Container from 'react-bootstrap/Container';
+import Container from 'react-bootstrap/Container'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 function App() {
 
@@ -33,13 +34,18 @@ function App() {
               element={<ProductDetail />}
               path='/productdetail/:id'
             />
+
             <Route
-              element={<Purchases />}
-              path='/purchases'
-            />
+              element={<ProtectedRoutes />}
+            >
+              <Route
+                element={<Purchases />}
+                path='/purchases'
+              />
+            </Route>
           </Routes>
         </Container>
-      </HashRouter>
+      </HashRouter >
     </>
   )
 }

@@ -17,7 +17,7 @@ const ProductDetail = () => {
   const dispatch = useDispatch()
 
   const allProducts = useSelector(state => state.products)
-  const productsfilters = allProducts.filter(products => products.id !== Number(id))
+  const productsFilterd = allProducts.filter(products => products.id !== Number(id))
 
   useEffect(() => {
 
@@ -47,7 +47,7 @@ const ProductDetail = () => {
       <button onClick={() => setRate(rate + 1)}>+</button>
 
       <button className="primary ms-3">Agregar al carrito</button>
-      
+
       <Row className="pt-3">
         <Col lg={9}>
           {/*Descripcion del producto */}
@@ -63,8 +63,11 @@ const ProductDetail = () => {
           <h3>Productos Relacionados</h3>
           <ListGroup>
             {
-              productsfilters.map(products => (
-                <ListGroup.Item key={products.id}>{products.headline}</ListGroup.Item>
+              productsFilterd.map(products => (
+                <ListGroup.Item
+                  key={products.id}>
+                  {products.headline}
+                </ListGroup.Item>
               ))
             }
           </ListGroup>

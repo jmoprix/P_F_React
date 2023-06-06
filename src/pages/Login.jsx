@@ -1,15 +1,39 @@
 
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import { useForm } from 'react-hook-form';
+import axios from 'axios'
+import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
+import { useForm } from 'react-hook-form'
+import { setIsLoading } from '../store/slices/isloading.slice'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 
 const Login = () => {
 
   const { register, handleSubmit } = useForm()
 
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
+
   const submit = data => {
 
-    console.log(data)
+    dispatch(setIsLoading(true))
+
+    axios
+      .post("https://e-commerce-api-v2.academlo.tech/api/v1/users/login", data)
+      .resp(resp => {
+        //localStorage.setItem("nombrePropiedad", valorAsignadoAlaPropiedad)
+        localStorage.setItem("token", resp.data.token)
+        navigate("/")
+      })
+      .catch(error => {
+        if (error.response.status === 401) {
+          alert("Credenciales incorrectas")
+        }
+        console.log(error)
+      })
+      .finally(() => setIsLoading(false))
 
   }
 
