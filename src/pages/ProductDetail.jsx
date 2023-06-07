@@ -1,11 +1,18 @@
-import { useState, useEffect } from "react"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
+import Button from 'react-bootstrap/Button'
+import ListGroup from "react-bootstrap/ListGroup"
+
+
+
+import axios from "axios"
+
+
+
+import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { filterCategoryTunk } from "../store/slices/products.slice"
-import axios from "axios"
-import ListGroup from "react-bootstrap/ListGroup"
 
 const ProductDetail = () => {
 
@@ -17,6 +24,7 @@ const ProductDetail = () => {
   const dispatch = useDispatch()
 
   const allProducts = useSelector(state => state.products)
+
   const productsFilterd = allProducts.filter(products => products.id !== Number(id))
 
   useEffect(() => {
@@ -37,27 +45,49 @@ const ProductDetail = () => {
     }
 
   }
+
   return (
+
     <div className="pt-5">
-      <h1>{products.name}</h1>
-      <p>{products.date}</p>
+      <h1>{products.title}</h1>
+      <p>{products.price}</p>
 
-      <button onClick={() => decrement()}>-</button>
-      <span>{rate}</span>
-      <button onClick={() => setRate(rate + 1)}>+</button>
+      <Button
+        onClick={() => decrement()}
+      >
+        -
+      </Button>
 
-      <button className="primary ms-3">Agregar al carrito</button>
+      <span>
+        {rate}
+      </span>
+
+      <Button
+        onClick={() => setRate(rate + 1)}
+      >
+        +
+      </Button>
+
+      <Button
+        className="primary ms-3"
+      >
+        Agregar al carrito
+      </Button>
 
       <Row className="pt-3">
+
         <Col lg={9}>
-          {/*Descripcion del producto */}
-          <img src={products.image} alt="" className="img-fluid" />
+
+          <img
+            src={products.images}
+            alt=""
+            className="img-fluid" />
           <small className="mb-3 d-block"> {products.description} </small>
-          {
+          {/*
             products.body?.map(p => (
               <p key={p.id}>{p.description}</p>
             ))
-          }
+            */}
         </Col>
         <Col lg={3}>
           <h3>Productos Relacionados</h3>
@@ -66,14 +96,14 @@ const ProductDetail = () => {
               productsFilterd.map(products => (
                 <ListGroup.Item
                   key={products.id}>
-                  {products.headline}
+                  {products.title}
+
                 </ListGroup.Item>
               ))
-            }
+              }
           </ListGroup>
         </Col>
       </Row>
-
     </div>
   )
 }

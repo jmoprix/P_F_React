@@ -1,23 +1,33 @@
-
-import axios from 'axios'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+
+
+
+//import axios from 'axios'
+
+
+
 import { useForm } from 'react-hook-form'
-import { setIsLoading } from '../store/slices/isloading.slice'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+//import { setIsLoading } from '../store/slices/isloading.slice'
+//import { useDispatch } from 'react-redux'
+//import { useNavigate } from 'react-router-dom'
 
 
 const Login = () => {
 
   const { register, handleSubmit } = useForm()
 
-  const dispatch = useDispatch()
+  //const dispatch = useDispatch()
 
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
 
   const submit = data => {
 
+    console.log(data)
+
+    {/*
     dispatch(setIsLoading(true))
 
     axios
@@ -34,7 +44,7 @@ const Login = () => {
         console.log(error)
       })
       .finally(() => setIsLoading(false))
-
+    */}
   }
 
   return (
@@ -45,28 +55,46 @@ const Login = () => {
         style={{ border: "1px solid black" }}
       >
         <h1 className='text-center'>INICIA SESIÓN</h1>
-        <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-          <Form.Label >Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Email"
-            {...register('email')}
-          />
+
+        <Form.Group
+          as={Row}
+          className="mb-3"
+          controlId="formHorizontalEmail">
+          <Form.Label>
+            Email
+          </Form.Label>
+          <Col sm={10}>
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              {...register('email')}
+            />
+          </Col>
         </Form.Group>
         <Form.Group
           s={Row}
           className="mb-3"
-          ontrolId="formHorizontalPassword"
+          controlId="formHorizontalPassword"
         >
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            {...register('password')}
-          />
+          <Form.Label>
+            Password
+          </Form.Label>
+          <Col sm={10}>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              {...register('password')}
+            />
+          </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3">
-          <button >Sign in</button>
+          <Col sm={{ span: 10, offset: 2 }}>
+            <Button
+              type='submit'
+            >
+              Sign in
+            </Button>
+          </Col>
         </Form.Group>
       </Form>
     </div>

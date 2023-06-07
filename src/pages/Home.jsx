@@ -88,7 +88,7 @@ const Home = () => {
                       <Button
                         variant="primary"
                         as={Link}
-                        to={`/products/${products.id}`}
+                        to={`/productdetail/${products.id}`}
                       >
                         Detalle
                       </Button>
