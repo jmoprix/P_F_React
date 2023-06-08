@@ -96,15 +96,10 @@ const ProductDetail = () => {
         <Col lg={9}>
 
           <img
-            src={products.images}
+            src={products.images?.[0].url}
             alt=""
             className="img-fluid" />
           <small className="mb-3 d-block"> {products.description} </small>
-          {/*
-            products.body?.map(p => (
-              <p key={p.id}>{p.description}</p>
-            ))
-            */}
         </Col>
         <Col lg={3}>
           <h3>Related products</h3>
