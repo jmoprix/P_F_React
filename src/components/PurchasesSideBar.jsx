@@ -7,7 +7,7 @@ import { getCartThunk, purchasesCartThunk, updateRateThunk } from '../store/slic
 const PurchasesSideBar = ({ show, handleClose }) => {
 
   const dispatch = useDispatch()
-  const purchases = useSelector(state => state.purchases)
+  const cart = useSelector(state => state.cart)
 
   useEffect(() => {
     dispatch(getCartThunk())
@@ -15,16 +15,16 @@ const PurchasesSideBar = ({ show, handleClose }) => {
 
   const decrementRate = products => {
 
-    if (products.rate > 1) {
+    if (products.quantity > 1) {
 
-      dispatch(updateRateThunk(products.id, products.rate - 1))
+      dispatch(updateRateThunk(products.id, products.quantity - 1))
     }
 
   }
 
-  const incrementRate = products=>{
+  const incrementRate = products => {
 
-    dispatch(updateRateThunk(products.id, products.rate + 1))
+    dispatch(updateRateThunk(products.id, products.quantity + 1))
 
   }
 
@@ -33,37 +33,40 @@ const PurchasesSideBar = ({ show, handleClose }) => {
       <Offcanvas placement='end' show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>
-            <h6>Productos en el carrito</h6>
+            <h6>Products in the cart</h6>
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ul>
             {
-              purchases?.map(item => (
+              cart?.map(item => (
                 <li key={item?.id}>
-                  <p>{item.products?.title}</p>
-                  <img src={item.products.images?.[0].url} alt='' className='img-fluid' />
+                  <p>{item.product?.title}</p>
+                  <img
+                    src={item.product.images?.[0].url}
+                    alt=''
+                    className='img-fluid'
+                  />
                   <br />
-                  <button
-                    disabled={item.rate===1}
+                  <Button
+                    disabled={item.rate === 1}
                     onClick={() => decrementRate(item)}
                   >
                     -
-                  </button>
-                  {item.rate}
-                  <button
-                    onClick={()=>incrementRate(item)}
+                  </Button>
+                  {item.quantity}
+                  <Button
+                    onClick={() => incrementRate(item)}
                   >
                     +
-                  </button>
+                  </Button>
 
                 </li>
               ))
             }
-            Hola pizukito
           </ul>
-          <Button onClick={()=> dispatch(purchasesCartThunk)}>
-            Comprar
+          <Button onClick={() => dispatch(purchasesCartThunk())}>
+            Buy
           </Button>
         </Offcanvas.Body>
       </Offcanvas>

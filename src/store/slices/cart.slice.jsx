@@ -1,9 +1,8 @@
-import { bindActionCreators, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { setIsLoading } from './isloading.slice'
 import getConfig from '../../utils/getConfig'
 
 import axios from 'axios';
-import { version } from 'react';
 
 export const cartSlice = createSlice({
     name: 'cart',
@@ -26,9 +25,8 @@ export const getCartThunk = () => dispatch => {
     dispatch(setIsLoading(true))
 
     axios
-        .get(`https://e-commerce-api-v2.academlo.tech/api/v1/purchases`, getConfig())
+        .get(`https://e-commerce-api-v2.academlo.tech/api/v1/cart`, getConfig())
         .then(resp => {
-            console.log(resp)
             dispatch(setCart(resp.data))
         })
         .catch(error => console.error(error))
@@ -38,6 +36,7 @@ export const getCartThunk = () => dispatch => {
 export const addToCartProductThunk = data => dispatch => {
 
     dispatch(setIsLoading(true))
+
 
     axios
         .post(`https://e-commerce-api-v2.academlo.tech/api/v1/cart`, data, getConfig())
@@ -57,7 +56,7 @@ export const updateRateThunk = (id, rate) => dispatch => {
     }
 
     axios
-        .put(`https://e-commerce-api-v2.academlo.tech/api/v1/cart/${id}`, body, getConfig)
+        .put(`https://e-commerce-api-v2.academlo.tech/api/v1/cart/${id}`, body, getConfig())
         .then(() => dispatch(getCartThunk()))
         .catch(error => console.error(error))
         .finally(() => dispatch(setIsLoading(false)))

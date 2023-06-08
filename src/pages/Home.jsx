@@ -37,7 +37,6 @@ const Home = () => {
 
   return (
     <div>
-
       <Row className='pt-5'>
         <Col md={4} lg={3} xl xxl>
           <ListGroup className='w-100'>
@@ -51,15 +50,14 @@ const Home = () => {
                 </ListGroup.Item>
               ))
             }
-
           </ListGroup>
         </Col>
         <Col md={8} lg={9}>
-          <h1>PRODUCTOS</h1>
+          <h1>PRODUCTS</h1>
           <InputGroup className="mb-3">
             <Form.Control
-              placeholder="Busqueda por nombre"
-              aria-label="Busqueda por nombre"
+              placeholder="Search by name"
+              aria-label="Search by name"
               aria-describedby="basic-addon2"
               value={searchValue}
               onChange={e => setSearchValue(e.target.value)}
@@ -69,12 +67,10 @@ const Home = () => {
               id="button-addon2"
               onClick={() => dispatch(filterHeadlineThunk(searchValue))}
             >
-              Buscar
+              Search
             </Button>
           </InputGroup>
-
           <Row xs={1} md={2} lg={3}>
-
             {
               productsList.map(products => (
                 <Col className='mb-3' key={products.id}>
@@ -93,16 +89,13 @@ const Home = () => {
                         as={Link}
                         to={`/productdetail/${products.id}`}
                       >
-                        Detalle
+                        Detail
                       </Button>
                     </Card.Body>
                   </Card>
                 </Col>
-
               ))
-
             }
-
           </Row>
         </Col>
       </Row>

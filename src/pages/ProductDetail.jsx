@@ -2,7 +2,6 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Button from 'react-bootstrap/Button'
 import ListGroup from "react-bootstrap/ListGroup"
-import { Link } from 'react-router-dom'
 
 import axios from "axios"
 
@@ -46,8 +45,8 @@ const ProductDetail = () => {
 
   }
 
-  const addToCartProduct = id => {
-    const purchases = {
+  const addToCartProduct = () => {
+    const cart = {
       productId: products.id,
       quantity: rate
     }
@@ -55,9 +54,9 @@ const ProductDetail = () => {
     const tokenValue = localStorage.getItem("token")
 
     if (tokenValue) {
-      dispatch(addToCartProductThunk(purchases))
-    }else{
-      navigate ("/login")
+      dispatch(addToCartProductThunk(cart))
+    } else {
+      navigate("/login")
     }
 
 
@@ -89,7 +88,7 @@ const ProductDetail = () => {
         className="primary ms-3"
         onClick={addToCartProduct}
       >
-        Agregar al carrito
+        Add to cart
       </Button>
 
       <Row className="pt-3">
@@ -108,7 +107,7 @@ const ProductDetail = () => {
             */}
         </Col>
         <Col lg={3}>
-          <h3>Productos Relacionados</h3>
+          <h3>Related products</h3>
           <ListGroup>
             {
               productsFilterd?.map(products => (

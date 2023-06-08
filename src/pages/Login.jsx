@@ -50,7 +50,7 @@ const Login = () => {
         className='p-5'
         style={{ border: "1px solid black" }}
       >
-        <h1 className='text-center'>INICIA SESIÓN</h1>
+        <h1 className='text-center'>LOG IN</h1>
 
         <Form.Group
           as={Row}
