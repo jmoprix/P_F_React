@@ -2,17 +2,16 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Button from 'react-bootstrap/Button'
 import ListGroup from "react-bootstrap/ListGroup"
-
-
+import { Link } from 'react-router-dom'
 
 import axios from "axios"
-
-
 
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { filterCategoryTunk } from "../store/slices/products.slice"
+import { addToCartProductThunk } from "../store/slices/cart.slice"
+import { useNavigate } from "react-router-dom"
 
 const ProductDetail = () => {
 
@@ -27,12 +26,13 @@ const ProductDetail = () => {
 
   const productsFilterd = allProducts.filter(products => products.id !== Number(id))
 
+  const navigate = useNavigate()
+
   useEffect(() => {
 
     axios
       .get(`https://e-commerce-api-v2.academlo.tech/api/v1/products/${id}/`)
       .then(resp => {
-        console.log(resp.data)
         setProducts(resp.data)
         dispatch(filterCategoryTunk(resp.data.category.id))
       })
@@ -43,6 +43,23 @@ const ProductDetail = () => {
     if (rate > 1) {
       setRate(rate - 1)
     }
+
+  }
+
+  const addToCartProduct = id => {
+    const purchases = {
+      productId: products.id,
+      quantity: rate
+    }
+
+    const tokenValue = localStorage.getItem("token")
+
+    if (tokenValue) {
+      dispatch(addToCartProductThunk(purchases))
+    }else{
+      navigate ("/login")
+    }
+
 
   }
 
@@ -70,6 +87,7 @@ const ProductDetail = () => {
 
       <Button
         className="primary ms-3"
+        onClick={addToCartProduct}
       >
         Agregar al carrito
       </Button>
@@ -93,14 +111,13 @@ const ProductDetail = () => {
           <h3>Productos Relacionados</h3>
           <ListGroup>
             {
-              productsFilterd.map(products => (
+              productsFilterd?.map(products => (
                 <ListGroup.Item
                   key={products.id}>
                   {products.title}
-
                 </ListGroup.Item>
               ))
-              }
+            }
           </ListGroup>
         </Col>
       </Row>
